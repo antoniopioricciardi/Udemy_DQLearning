@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" id="40a8d666-7e41-4481-b4f4-8d4c096897cf" port="22" customName="antonio_pc_remote" nameFormat="CUSTOM" username="antoniopioricciardi" />
-    </configs>
-  </component>
-</project>
