@@ -151,7 +151,8 @@ class StackFrames(gym.ObservationWrapper):
         return np.array(self.stack).reshape(self.observation_space.low.shape)
 
 
-def make_env(env_name, shape=(84,84,1), repeat=4, clip_rewards=False, no_ops=0, episodic_life=False, fire_first=False):
+def make_env(env_name, shape=(84,84,1), repeat=4, clip_rewards=False, no_ops=0, episodic_life=False, fire_first=False,
+             render_mode="rgb_array"):
     """
 
     :param env_name:
@@ -164,7 +165,7 @@ def make_env(env_name, shape=(84,84,1), repeat=4, clip_rewards=False, no_ops=0, 
     :return:
     """
     # operations above basically stacks the changes on the environment
-    env = gym.make(env_name)
+    env = gym.make(env_name, render_mode=render_mode)
     env = RepeatActionAndMaxFrame(env, repeat, clip_rewards, no_ops, fire_first)
     if episodic_life:
         env = EpisodicLifeEnv(env)

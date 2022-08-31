@@ -3,11 +3,9 @@ import torch
 import random
 from torch.nn.utils import clip_grad_norm_
 
-from c5_deepqn.deepqn import DeepQN
-from c6_doubledqn.doubledqn import DDQN
-from c7_duelingdqn.duelingdqn import DuelingDQN
 from atari_dueling.dueling_ddqn import DuelingDDQN
 from atari_dueling.ddqn import DDQN
+from atari_dueling.dqn import DQN
 from atari_dueling.replaymemory import ReplayMemory
 
 
@@ -130,7 +128,6 @@ class DQNAgent(Agent):
         self.learn_step_counter += 1
 
         self.decrement_epsilon()
-
 
 class DDQNAgent(Agent):
     def __init__(self, *args, **kwargs):

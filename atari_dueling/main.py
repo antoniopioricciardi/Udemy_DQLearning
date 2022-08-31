@@ -21,7 +21,7 @@ if __name__=='__main__':
     parser.add_argument('-algo', type=str, default='DuelingDDQNAgent')
     parser.add_argument('-plot_name', type=str, default='plot')
     parser.add_argument('-n_games', type=int, default=1)
-    parser.add_argument('-lr', type=float, default=0.001)
+    parser.add_argument('-lr', type=float, default=0.0001)
     parser.add_argument('-gamma', type=float, default=0.99)
     parser.add_argument('-epsilon', type=float, default=1.0, help='Starting value for epsilon')
     parser.add_argument('-epsilon_min', type=float, default=0.1, help='Final value for epsilon')
@@ -56,7 +56,14 @@ if __name__=='__main__':
     if not os.path.exists(videos_path):
         os.mkdir(videos_path)
 
-    env = make_env(args.env_name, clip_rewards=True, episodic_life=False)  # clip_rewards for Breakout!!
+    # TODO: DQN does not find path
+    # TODO: monitor is disabled
+    load_checkpoint = args.load_checkpoint  # if we're training, no need to load checkpoint
+    if load_checkpoint:
+        env = make_env(args.env_name, clip_rewards=True, episodic_life=False, render_mode='human')  # clip_rewards for Breakout!!
+    else:
+        env = make_env(args.env_name, clip_rewards=True, episodic_life=False)  # clip_rewards for Breakout!!
+
     # print(env.unwrapped.get_action_meanings())
 
 
@@ -86,9 +93,9 @@ if __name__=='__main__':
     if load_checkpoint:
         agent.load_models()
         videos_path = os.path.join(videos_path, )
-        env = wrappers.Monitor(env, videos_path, video_callable=lambda episode_id: True, force=True)  # force overwrites previous video
-    else:
-        env = wrappers.Monitor(env, videos_path, video_callable=lambda episode_id: episode_id % 100 == 0, force=True)
+        # env = wrappers.Monitor(env, videos_path, video_callable=lambda episode_id: True, force=True)  # force overwrites previous video
+    # else:
+    #     env = wrappers.Monitor(env, videos_path, video_callable=lambda episode_id: episode_id % 100 == 0, force=True)
     # for saving plot
     # fname = agent.algo + '_' + agent.env_name + '_lr' + str(agent.lr) + '_' + str(n_games) + 'games'
     if load_checkpoint:
@@ -113,8 +120,8 @@ if __name__=='__main__':
             next_obs, reward, done, info = env.step(action)
             if done:
                 reward = -1
-            if load_checkpoint:
-                env.render()
+            # if load_checkpoint:
+            #     env.render()
 
             score += reward
             if not load_checkpoint:
@@ -143,7 +150,6 @@ if __name__=='__main__':
                 elapsed_time = time.time() - start
                 print(elapsed_time)
                 plot_learning_curve(steps_array, scores, eps_history, figure_file)
-                exit(0)
     elapsed_time = time.time() - start
     print(elapsed_time)
     plot_learning_curve(steps_array, scores, eps_history, figure_file)
