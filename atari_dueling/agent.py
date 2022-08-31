@@ -6,6 +6,7 @@ from torch.nn.utils import clip_grad_norm_
 from atari_dueling.dueling_ddqn import DuelingDDQN
 from atari_dueling.ddqn import DDQN
 from atari_dueling.dqn import DQN
+#TODO: from atari_dueling.dueling_dqn import DuelingDQN
 from atari_dueling.replaymemory import ReplayMemory
 
 
@@ -79,11 +80,11 @@ class Agent:
 class DQNAgent(Agent):
     def __init__(self, *args, **kwargs):  # instead of writing class args one by one, we can use *args and **kwargs. The latter is for arg=something case
         super(DQNAgent, self).__init__(*args, **kwargs)
-        self.eval_Q = DeepQN(self.lr, self.input_dims, self.n_actions, self.env_name+'_'+self.algo+'_q_eval',
+        self.eval_Q = DQN(self.lr, self.input_dims, self.n_actions, self.env_name+'_'+self.algo+'_q_eval',
                                        self.checkpoint_dir)
         # will be used to compute Q(s',a') - that is for the resulting states
         # We won't perform gradient descent/backprob on this net, only on the eval.
-        self.target_Q = DeepQN(self.lr, self.input_dims, self.n_actions, self.env_name + '_' + self.algo + '_q_target',
+        self.target_Q = DQN(self.lr, self.input_dims, self.n_actions, self.env_name + '_' + self.algo + '_q_target',
                                  self.checkpoint_dir)
 
     def choose_action(self, state):
