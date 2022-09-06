@@ -7,9 +7,9 @@ import random
 
 from gym import wrappers
 
-import atari_dueling.agent as Agent
-from atari_dueling.env_customization import make_env
-from atari_dueling.utils import plot_learning_curve
+import agent as Agent
+from env_customization import make_env
+from utils import plot_learning_curve
 #1half: episode  55715 score:  7.0 average score 4.6 best score 6.5 epsilon 0.01 steps  6471998
 
 

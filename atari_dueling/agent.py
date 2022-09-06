@@ -3,11 +3,11 @@ import torch
 import random
 from torch.nn.utils import clip_grad_norm_
 
-from atari_dueling.dueling_ddqn import DuelingDDQN
-from atari_dueling.ddqn import DDQN
-from atari_dueling.dqn import DQN
+from dueling_ddqn import DuelingDDQN
+from ddqn import DDQN
+from dqn import DQN
 #TODO: from atari_dueling.dueling_dqn import DuelingDQN
-from atari_dueling.replaymemory import ReplayMemory
+from replaymemory import ReplayMemory
 
 
 class Agent:
